@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+'''
 class ImportCsv(models.Model):
     host_response_rate = models.IntegerField(("host_response_rate"))
     host_identity_verified = models.IntegerField((""))
@@ -26,3 +27,4 @@ class ImportCsv(models.Model):
 
     def __str__(self):
         return self.host_response_rate
+'''
