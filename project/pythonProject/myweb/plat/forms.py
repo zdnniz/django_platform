@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django import forms
 
 
+class UploadForm(forms.ModelForm):
+    file = forms.FileField()
+
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
 

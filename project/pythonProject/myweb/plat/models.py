@@ -28,3 +28,10 @@ class ImportCsv(models.Model):
     def __str__(self):
         return self.host_response_rate
 '''
+
+class ImportIEEE(models.Model):
+    TransactionID = models.CharField(max_length=32, primary_key=True)
+    isFraud = models.IntegerField((""))
+
+    def __str__(self):
+        return self.TransactionID
