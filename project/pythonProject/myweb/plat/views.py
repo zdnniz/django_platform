@@ -70,3 +70,4 @@ def charts_view(request):
     return render(request, 'charts.html')
 
 
+
