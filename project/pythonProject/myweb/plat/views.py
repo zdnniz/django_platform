@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import RegisterForm
-
-from pyecharts.charts import Bar
+from .models import *
 # Create your views here.
 
 def home(request):
@@ -51,8 +50,22 @@ def register_view(request):
     return render(request, 'register.html', {'form':form})
 
 def charts_view(request):
+    from pyecharts.charts import Pie, Bar
+    from pyecharts import options as opts
+
+
+    ieee = ImportIEEE.objects.first()
+    print(ieee)
+    '''
+    pie = Pie()
+    pie = (
+        Pie()
+        .add_dataset()
+    )'''
+
     bar = Bar()
     bar.add_xaxis(["1", "2", "3"])
     bar.add_yaxis("a", [1, 2, 3])
     bar.render('/home/z/PycharmProjects/django_platform/project/pythonProject/myweb/plat/templates/plat/charts.html')
     return render(request, 'charts.html')
+
