@@ -69,3 +69,4 @@ def charts_view(request):
     bar.render('/home/z/PycharmProjects/django_platform/project/pythonProject/myweb/plat/templates/plat/charts.html')
     return render(request, 'charts.html')
 
+
