@@ -18,8 +18,24 @@ def home(request):
         else:
             messages.success(request, "There Was An Error Logging In, Please Try Again...")
             return redirect('home')
+
     else:
-        return render(request, 'home.html', {})
+        datasets = Dataset.objects.all()
+
+        fraud_data = []
+        if request.method == 'POST':
+            print("1")
+            dataset_name = request.POST.get['DatasetName']
+            if datasets.DatasetName == dataset_name:
+                model = ImportIEEE.objects.filter()
+
+            for item in model:
+                if item.isFraud == 1:
+                    fraud_data.append(item)
+
+            return render(request, 'home.html', {'fraud_data': fraud_data})
+
+        return render(request, 'home.html', {'datasets': datasets})
 
 def logout_view(request):
     logout(request)
@@ -53,21 +69,23 @@ def charts_view(request):
     from pyecharts.charts import Pie, Bar
     from pyecharts import options as opts
 
+    model = ImportIEEE.objects.filter()
 
-    ieee = ImportIEEE.objects.first()
-    print(ieee)
-    '''
+    fraud_number = 0
+    IS_F = []
+
+    for item in model:
+        if item.isFraud == 1: fraud_number += 1
+        IS_F = [fraud_number, 50 - fraud_number]
+
+    T_ID = ['FRAUD', 'NOT_FRAUD']
+
     pie = Pie()
-    pie = (
-        Pie()
-        .add_dataset()
-    )'''
+    pie.add('IS_FRAUD', [list(pi) for pi in zip(T_ID, IS_F)])
 
-    bar = Bar()
-    bar.add_xaxis(["1", "2", "3"])
-    bar.add_yaxis("a", [1, 2, 3])
-    bar.render('/home/z/PycharmProjects/django_platform/project/pythonProject/myweb/plat/templates/plat/charts.html')
-    return render(request, 'charts.html')
+    pie.render('/home/z/PycharmProjects/django_platform/project/pythonProject/myweb/plat/templates/plat/pie.html')
+
+    return render(request, 'pie.html')
 
 
 

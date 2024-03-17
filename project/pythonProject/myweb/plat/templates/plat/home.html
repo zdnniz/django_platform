@@ -4,7 +4,27 @@
 
     {% if user.is_authenticated %}
 
-    <h1>Suceess</h1>
+    <h1>Datasets Available</h1>
+    <form method="post" action="{% url 'home'%}">
+        {% csrf_token %}
+
+        {% for item in datasets%}
+
+        <p><input type="radio" name="dataset_name" value="{{item.DatasetName}}">{{item.DatasetName}}</p>
+
+        {% endfor %}
+        <button type="submit" class="btn btn-secondary">Submit</button>
+        <input type="button" name="open dataset" value="Open Dataset">
+
+<form method="post" action="{% url 'home'%}">
+        {% csrf_token %}
+
+        {% for item in fraud_data%}
+
+        <p><output name="fraud_data">{{fraud_data.TransactionID}}</output> </p>
+
+        {% endfor %}
+    </form>
 
     {% else %}
 

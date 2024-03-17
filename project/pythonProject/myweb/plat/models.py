@@ -35,3 +35,10 @@ class ImportIEEE(models.Model):
 
     def __str__(self):
         return self.TransactionID
+
+class Dataset(models.Model):
+    DatasetID = models.CharField(max_length=32, primary_key=True)
+    DatasetName = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.DatasetID
