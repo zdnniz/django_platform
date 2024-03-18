@@ -17,12 +17,20 @@
 
     <!-- 展示所选数据集的内容 -->
     {% if selected_dataset %}
-        <p>Fraud Data</p>
-        <ul>
+        <table>
+          <thead>
+            <tr>
+              <th>Fraud Data</th>
+            </tr>
+          </thead>
+          <tbody>
             {% for item in selected_dataset %}
-                <li>{{ item.TransactionID }}</li>
+              <tr>
+                <td>{{ item.TransactionID }}</td>
+              </tr>
             {% endfor %}
-        </ul>
+          </tbody>
+        </table>
     {% endif %}
 
     {% else %}
