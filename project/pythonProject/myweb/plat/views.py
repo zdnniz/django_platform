@@ -9,7 +9,7 @@ def home(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-		# Authenticate
+
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -19,23 +19,34 @@ def home(request):
             messages.success(request, "There Was An Error Logging In, Please Try Again...")
             return redirect('home')
 
-    else:
-        datasets = Dataset.objects.all()
+    datasets = Dataset.objects.all()
+    selected_dataset_id = request.GET.get('dataset')
 
-        fraud_data = []
-        if request.method == 'POST':
-            print("1")
-            dataset_name = request.POST.get['DatasetName']
-            if datasets.DatasetName == dataset_name:
-                model = ImportIEEE.objects.filter()
-
-            for item in model:
+    if selected_dataset_id == "00001":
+        try:
+            selected_dataset = ImportIEEE.objects.all()
+            IS_Fraud = []
+            for item in selected_dataset:
                 if item.isFraud == 1:
-                    fraud_data.append(item)
+                    IS_Fraud.append(item)
+        except Dataset.DoesNotExist:
+            messages.error(request, "所选数据集不存在。")
 
-            return render(request, 'home.html', {'fraud_data': fraud_data})
+        return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': IS_Fraud})
 
-        return render(request, 'home.html', {'datasets': datasets})
+    if selected_dataset_id == "00002":
+        try:
+            selected_dataset = ImportIEEE.objects.all()
+            IS_Fraud = []
+            for item in selected_dataset:
+                if item.isFraud == 1:
+                    IS_Fraud.append(item)
+        except Dataset.DoesNotExist:
+            messages.error(request, "所选数据集不存在。")
+
+        return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': IS_Fraud})
+
+    return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': []})
 
 def logout_view(request):
     logout(request)
