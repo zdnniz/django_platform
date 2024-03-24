@@ -15,23 +15,27 @@
         <input type="submit" value="查看数据集">
     </form>
 
-    <!-- 展示所选数据集的内容 -->
+<body>
+
+
+<p>Fraud Data</p>
+
+<div class="table-container">
     {% if selected_dataset %}
-        <table>
-          <thead>
-            <tr>
-              <th>Fraud Data</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in selected_dataset %}
-              <tr>
-                <td>{{ item.TransactionID }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+            <table>
+              <tbody>
+                {% for item in selected_dataset %}
+                  <tr>
+                    <td>{{ item.TransactionID }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
     {% endif %}
+    </div>
+
+</body>
+
 
     {% else %}
 

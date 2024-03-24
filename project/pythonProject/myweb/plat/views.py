@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.core.paginator import Paginator
 from .forms import RegisterForm
 from .models import *
 # Create your views here.
@@ -21,32 +22,29 @@ def home(request):
 
     datasets = Dataset.objects.all()
     selected_dataset_id = request.GET.get('dataset')
+    page_number = request.GET.get('page', 1)  # 获取当前页码，默认为第一页
+    per_page = 5  # 每页显示的项目数量
 
     if selected_dataset_id == "00001":
+        selected_dataset = ImportIEEE.objects.filter(isFraud=1)
+
+        return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': selected_dataset})
+
+    elif selected_dataset_id == "00002":
         try:
-            selected_dataset = ImportIEEE.objects.all()
-            IS_Fraud = []
-            for item in selected_dataset:
-                if item.isFraud == 1:
-                    IS_Fraud.append(item)
+            selected_dataset = ImportIEEE.objects.filter(isFraud=1)
+
         except Dataset.DoesNotExist:
             messages.error(request, "所选数据集不存在。")
 
-        return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': IS_Fraud})
+        return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': selected_dataset})
 
-    if selected_dataset_id == "00002":
-        try:
-            selected_dataset = ImportIEEE.objects.all()
-            IS_Fraud = []
-            for item in selected_dataset:
-                if item.isFraud == 1:
-                    IS_Fraud.append(item)
-        except Dataset.DoesNotExist:
-            messages.error(request, "所选数据集不存在。")
+    else:
+        selected_dataset = ImportIEEE.objects.none()
 
-        return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': IS_Fraud})
 
-    return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': []})
+
+    return render(request, 'home.html', {'datasets': datasets, 'selected_dataset': selected_dataset})
 
 def logout_view(request):
     logout(request)
