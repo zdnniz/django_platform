@@ -7,7 +7,7 @@ from pyecharts.charts import Pie, Bar
 from .forms import RegisterForm
 from .models import *
 
-from .GCN_AnomalyDetection_pytorch.test import train_dominant
+from .GCN_pytorch.test import train_dominant
 # Create your views here.
 
 def home(request):
