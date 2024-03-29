@@ -31,6 +31,17 @@
                 {% endfor %}
               </tbody>
             </table>
+
+    {% elif select_dataset %}
+            <table>
+              <tbody>
+                {% for item in select_dataset %}
+                  <tr>
+                    <td>{{ item}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
     {% endif %}
     </div>
 
